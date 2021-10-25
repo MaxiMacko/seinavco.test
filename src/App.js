@@ -87,8 +87,8 @@ function App() {
   const [isInitialFlag, setIsInitialFlag] = useState(true);
   const [imageToShowFullScreen, setImageToShowFullScreen] = useState(null)
 
-
-  const searchButtonClickHandler = async () => {
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault()
     setImagesLoading(true)
     setIsInitialFlag(false)
     const data = await fetch(`${IMAGES_ENDPOINT}/?` + new URLSearchParams({
@@ -101,14 +101,14 @@ function App() {
     setImagesLoading(false);
   }
 
-  console.log('images', imageItems)
-
   return (
     <div className="App">
       <SearchBarWrapper className={isInitialFlag ? 'fullScreen' : ''}>
         <div>
-          <StyledInput onChange={e => setSearchText(e.target.value)} value={searchText}/>
-          <SearchButton onClick={searchButtonClickHandler}>{imagesLoading ? 'Searching' : 'Search'}</SearchButton>
+          <form onSubmit={handleSearchSubmit}>
+            <StyledInput onChange={e => setSearchText(e.target.value)} value={searchText}/>
+            <SearchButton type={"submit"}>{imagesLoading ? 'Searching' : 'Search'}</SearchButton>
+          </form>
         </div>
       </SearchBarWrapper>
       <ImagesWrapper className={!isInitialFlag ? 'fullScreen' : ''}>
