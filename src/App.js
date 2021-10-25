@@ -17,6 +17,8 @@ const SearchBarWrapper = styled.div`
   height: 35px;
   background-color: #353335;
   transition: 2s all;
+  display: flex;
+  justify-content: center;
   &.fullScreen {
     height: 100vh;
     display: flex;
