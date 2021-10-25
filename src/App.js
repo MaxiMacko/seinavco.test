@@ -7,6 +7,8 @@ const IMAGES_ENDPOINT = 'https://pixabay.com/api'
 const ImagesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   background-color: dodgerblue;
   &.fullScreen {
     min-height: calc(100vh - 35px);
@@ -73,6 +75,11 @@ const ImageBackground = styled.div`
   opacity: 0.8;
 `
 
+const Message = styled.div`
+  color: white;
+  font-size: 2rem;
+`
+
 function App() {
   const [searchText, setSearchText] = useState('')
   const [imageItems, setImageItems] = useState([])
@@ -94,6 +101,8 @@ function App() {
     setImagesLoading(false);
   }
 
+  console.log('images', imageItems)
+
   return (
     <div className="App">
       <SearchBarWrapper className={isInitialFlag ? 'fullScreen' : ''}>
@@ -104,7 +113,11 @@ function App() {
       </SearchBarWrapper>
       <ImagesWrapper className={!isInitialFlag ? 'fullScreen' : ''}>
         {
-          imageItems.map(image => (
+          !imageItems.length &&
+            <Message>Oops! No photos.</Message>
+        }
+        {
+          imageItems.length > 0 && imageItems.map(image => (
             <ImageWrapper key={image.id}>
               <StyledImage src={image.webformatURL} key={image.id} onClick={() => setImageToShowFullScreen(image)}/>
             </ImageWrapper>
