@@ -84,7 +84,7 @@ function App() {
   const searchButtonClickHandler = async () => {
     setImagesLoading(true)
     setIsInitialFlag(false)
-    const data = await fetch(`${IMAGES_ENDPOINT}?` + new URLSearchParams({
+    const data = await fetch(`${IMAGES_ENDPOINT}/?` + new URLSearchParams({
       key: API_KEY,
       q: searchText,
       orientation: 'horizontal',
